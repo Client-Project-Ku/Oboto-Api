@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\FacilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user',[AuthController::class, 'user']);
 
     Route::get('/categories', [CategoryController::class, 'index']);
+
+    Route::get('/facilities', [FacilityController::class, 'index']);
 });

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Bookmark extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'place_id',
+        'user_id',
+        'timer',
+    ];
 }

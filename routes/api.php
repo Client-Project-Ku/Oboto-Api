@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\FacilityController;
+use App\Http\Controllers\Api\DistrictController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/categories', [CategoryController::class, 'index']);
 
     Route::get('/facilities', [FacilityController::class, 'index']);
+
+    Route::get('/districts', [DistrictController::class, 'index']);
 });

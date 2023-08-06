@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\FacilityController;
 use App\Http\Controllers\Api\DistrictController;
+use App\Http\Controllers\Api\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/facilities', [FacilityController::class, 'index']);
 
     Route::get('/districts', [DistrictController::class, 'index']);
+
+    Route::apiResource('/places', PlaceController::class);
+    Route::get('/events', [PlaceController::class, 'getPlaceEvent']); 
+    
 });

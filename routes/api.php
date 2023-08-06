@@ -40,4 +40,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/events', [PlaceController::class, 'getPlaceEvent']); 
     
     Route::apiResource('/bookmarks', BookmarkController::class);
+
+    Route::apiResource('/reviews', ReviewController::class)->except(['index', 'show', 'update']);
+
+    Route::apiResource('/images', ImageController::class)->except(['index', 'show']);
 });

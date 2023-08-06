@@ -30,11 +30,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout',[AuthController::class, 'logout']);
     Route::get('/user',[AuthController::class, 'user']);
 
-    Route::get('/categories', [CategoryController::class, 'index']);
+    Route::apiResource('/categories', CategoryController::class);
 
-    Route::get('/facilities', [FacilityController::class, 'index']);
+    Route::apiResource('/facilities', FacilityController::class);
 
-    Route::get('/districts', [DistrictController::class, 'index']);
+    Route::apiResource('/districts', DistrictController::class);
 
     Route::apiResource('/places', PlaceController::class);
     Route::get('/events', [PlaceController::class, 'getPlaceEvent']); 

@@ -12,4 +12,9 @@ class Facility extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function places()
+    {
+        return $this->belongsToMany(Place::class, 'place_facilties');
+    }
 }

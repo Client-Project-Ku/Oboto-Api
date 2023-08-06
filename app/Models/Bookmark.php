@@ -14,4 +14,14 @@ class Bookmark extends Model
         'user_id',
         'timer',
     ];
+
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

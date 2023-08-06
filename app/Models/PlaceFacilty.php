@@ -13,4 +13,14 @@ class PlaceFacilty extends Model
         'place_id',
         'facility_id',
     ];
+
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
+
+    public function facility()
+    {
+        return $this->belongsTo(Facility::class);
+    }
 }

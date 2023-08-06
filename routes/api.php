@@ -39,4 +39,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/places', PlaceController::class);
     Route::get('/events', [PlaceController::class, 'getPlaceEvent']); 
     
+    Route::apiResource('/bookmarks', BookmarkController::class);
 });

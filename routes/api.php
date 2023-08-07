@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\FacilityController;
 use App\Http\Controllers\Api\DistrictController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\PlaceController;
 
 /*

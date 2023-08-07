@@ -12,6 +12,7 @@ class Image extends Model
     protected $fillable = [
         'name',
         'place_id',
+        'path'
     ];
 
     public function place()

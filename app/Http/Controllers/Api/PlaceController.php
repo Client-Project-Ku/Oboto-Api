@@ -23,6 +23,7 @@ class PlaceController extends Controller
         $places = $places->map(function ($place) {
             unset($place->category_id);
             unset($place->district_id);
+            unset($place->event_date);
             return $place;
         });
 
@@ -36,6 +37,13 @@ class PlaceController extends Controller
                 $query->where('name', CategoryName::EVENT);
             })
             ->get();
+
+        
+        $places = $places->map(function ($place) {
+            unset($place->category_id);
+            unset($place->district_id);
+            return $place;
+        });
 
         return response()->json(['places' => $places]);
     }

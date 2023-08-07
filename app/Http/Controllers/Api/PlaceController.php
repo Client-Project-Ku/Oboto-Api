@@ -20,6 +20,12 @@ class PlaceController extends Controller
             })
             ->get();
 
+        $places = $places->map(function ($place) {
+            unset($place->category_id);
+            unset($place->district_id);
+            return $place;
+        });
+
         return response()->json(['places' => $places]);
     }
 

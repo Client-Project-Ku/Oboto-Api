@@ -21,9 +21,13 @@ class PlaceController extends Controller
             ->get();
 
         $places = $places->map(function ($place) {
-            unset($place->category_id);
-            unset($place->district_id);
-            unset($place->event_date);
+            // Rename category_id to category and assign its value
+            $place->category_id = $place->category->name;
+                
+            // Rename district_id to district and assign its value
+            $place->district_id = $place->district->name;
+            unset($place->category);
+            unset($place->district);
             return $place;
         });
 
@@ -40,6 +44,11 @@ class PlaceController extends Controller
 
         
         $places = $places->map(function ($place) {
+             // Rename category_id to category and assign its value
+             $place->category_id = $place->category->name;
+                
+             // Rename district_id to district and assign its value
+             $place->district_id = $place->district->name;
             unset($place->category_id);
             unset($place->district_id);
             return $place;

@@ -15,9 +15,6 @@ class PlaceController extends Controller
     public function index()
     {
         $places = Place::with(['category', 'district', 'facilities', 'images', 'reviews'])
-            ->whereHas('category', function ($query) {
-                $query->where('name', CategoryName::WISATA);
-            })
             ->get();
 
         $places = $places->map(function ($place) {
@@ -73,6 +70,7 @@ class PlaceController extends Controller
             'lng' => 'required|numeric',
             'category_id' => 'required|numeric',
             'district_id' => 'required|numeric',
+            'event_date' => 'date_format:Y-m-d'
         ]);
         
         $place = Place::create($validate);
@@ -110,6 +108,7 @@ class PlaceController extends Controller
             'lng' => 'required|numeric',
             'category_id' => 'required|numeric',
             'district_id' => 'required|numeric',
+            'event_date' => 'date_format:Y-m-d'
         ]);
 
         $place->update($validate);

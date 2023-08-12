@@ -22,6 +22,7 @@ class Place extends Model
         'lng',
         'category_id',
         'district_id',
+        'event_date'
     ];
 
     public function category()

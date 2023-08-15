@@ -23,6 +23,7 @@ class PlaceController extends Controller
                 
                 $place->reviews->transform(function ($review) {
                     $review->user_name = $review->user->name; 
+                    unset($review->user_id);
                     unset($review->user); 
                     return $review;
                 });

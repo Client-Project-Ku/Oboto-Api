@@ -23,6 +23,13 @@ class PlaceController extends Controller
                 return $place;
             });
 
+            $place->reviews->transform(function ($review) {
+                $review->user_name = $review->user->name; 
+                unset($review->user); 
+                return $review;
+            });
+        
+
             return response()->json(['places' => $places]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error fetching places.', 'error' => $e->getMessage()], 500);

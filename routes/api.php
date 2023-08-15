@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\FacilityController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\PlaceController;
+use App\Http\Controllers\Api\PlaceFacilityController;
 use App\Http\Controllers\Api\ReviewController;
 
 /*
@@ -47,4 +48,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/reviews', ReviewController::class)->except(['index', 'show', 'update']);
 
     Route::apiResource('/images', ImageController::class)->except(['index', 'show']);
+
+    Route::apiResource('/places.facilities', PlaceFacilityController::class)->except(['index', 'show']);
 });

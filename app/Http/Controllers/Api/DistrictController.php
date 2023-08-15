@@ -5,51 +5,76 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\District;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DistrictController extends Controller
 {
-    public function index ()
+    public function index()
     {
-        $districts = District::all();
-
-        return response()->json(['districts' => $districts]);
+        try {
+            $districts = District::all();
+            return response()->json(['districts' => $districts]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error fetching districts.', 'error' => $e->getMessage()], 500);
+        }
     }
 
-    public function store (Request $request)
+    public function store(Request $request)
     {
-        $validate = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        try {
+            $validate = $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
 
-        $district = District::create($validate);
+            $district = District::create($validate);
 
-        return response()->json(['district' => $district]);
+            return response()->json(['district' => $district]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'District creation failed.', 'error' => $e->getMessage()], 500);
+        }
     }
 
-    public function show ($id)
+    public function show($id)
     {
-        $district = District::find($id);
-
-        return response()->json(['district' => $district]);
+        try {
+            $district = District::findOrFail($id);
+            return response()->json(['district' => $district]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'District not found.'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error fetching district.', 'error' => $e->getMessage()], 500);
+        }
     }
 
-    public function update (Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $validate = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        try {
+            $validate = $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
 
-        $district = District::find($id);
-        $district->update($validate);
+            $district = District::findOrFail($id);
+            $district->update($validate);
 
-        return response()->json(['district' => $district]);
+            return response()->json(['district' => $district]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'District not found.'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'District update failed.', 'error' => $e->getMessage()], 500);
+        }
     }
 
-    public function destroy ($id)
+    public function destroy($id)
     {
-        $district = District::find($id);
-        $district->delete();
+        try {
+            $district = District::findOrFail($id);
+            $district->delete();
 
-        return response()->json(['district' => $district]);
+            return response()->json(['message' => 'District deleted.']);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'District not found.'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'District deletion failed.', 'error' => $e->getMessage()], 500);
+        }
     }
 }

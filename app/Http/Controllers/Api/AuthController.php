@@ -72,4 +72,52 @@ class AuthController extends Controller
             return response()->json(['message' => 'Error fetching user.', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function updateProfile (Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'picture' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            
+            $user = $request->user();
+            $user->name = $request->input('name');
+            $user->email = strtolower($request->input('email'));
+
+            // foto profile
+            if ($request->hasFile('picture')) {
+                $imageFile = $request->file('picture');
+                $imageName = $request->input('name') . '.' . $imageFile->getClientOriginalExtension();
+                $imagePath = $imageFile->storeAs('images', $imageName, 'public');
+                $user->picture = $imagePath;
+            } else {
+                $user->picture = $user->picture;
+            }
+
+            $user->save();
+
+            return response()->json(['user' => $user]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error updating profile.', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updatePassword (Request $request)
+    {
+        try {
+            $request->validate([
+                'password' => 'required|string|min:8',
+            ]);
+            
+            $user = $request->user();
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+
+            return response()->json(['user' => $user]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error updating password.', 'error' => $e->getMessage()], 500);
+        }
+    }
 }

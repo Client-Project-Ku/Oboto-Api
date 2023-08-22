@@ -20,8 +20,18 @@ class PlaceController extends Controller
                 $place->district_id = $place->district->name;
                 unset($place->category);
                 unset($place->district);
+                
+                $place->reviews->transform(function ($review) {
+                    $review->user_name = $review->user->name; 
+                    unset($review->user_id);
+                    unset($review->user); 
+                    return $review;
+                });
+                
                 return $place;
             });
+
+        
 
             return response()->json(['places' => $places]);
         } catch (\Exception $e) {

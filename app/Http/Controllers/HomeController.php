@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Place;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = Place::with('category')->get();
+        $wisata = Place::with('category')->where('category_id', 1)->count();
+        $event = Place::with('category')->where('category_id', 2)->count();
+        $user = User::count();
+        return view('home', [
+            'data' => $data,
+            'wisata' => $wisata,
+            'event' => $event,
+            'user' => $user
+        ]);
+    }
+
+    public function indexPlaces()
+    {
+        return view('place');
+    }
+    public function indexImages()
+    {
+        return view('image');
     }
 }

@@ -25,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Place::with('category')->get();
+        $data = Place::with('category', 'district')
+            ->orderBy('created_at', 'desc') // Sort by the 'created_at' column in descending order
+            ->get();
         $wisata = Place::with('category')->where('category_id', 1)->count();
         $event = Place::with('category')->where('category_id', 2)->count();
         $user = User::count();
@@ -35,14 +37,5 @@ class HomeController extends Controller
             'event' => $event,
             'user' => $user
         ]);
-    }
-
-    public function indexPlaces()
-    {
-        return view('place');
-    }
-    public function indexImages()
-    {
-        return view('image');
     }
 }

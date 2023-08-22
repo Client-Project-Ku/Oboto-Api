@@ -19,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/places', [App\Http\Controllers\HomeController::class, 'indexPlaces'])->name('places');
-Route::get('/images', [App\Http\Controllers\HomeController::class, 'indexImages'])->name('images');
+Route::resources([
+    'place' => App\Http\Controllers\PlaceController::class,
+    'image' => App\Http\Controllers\ImagesController::class,
+]);
 
 Auth::routes();

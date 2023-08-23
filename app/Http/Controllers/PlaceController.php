@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Image;
 use App\Models\Place;
 use App\Models\Category;
@@ -51,5 +52,44 @@ class PlaceController extends Controller
                 'category' => $category,
                 'facility' => $facility,
             ]);
+    }
+
+    public function show(string $id)
+    {
+        //
+    }
+
+    public function edit($id) {
+        $place = Place::findOrFail($id);
+        $category = Category::all();
+        $district = District::all();
+        $facility = Facility::all();
+        return view('editPlace', [
+            'place' => $place,
+            'category' => $category,
+            'district' => $district,
+            'facility' => $facility,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+
+        $item = Place::findOrFail($id);
+
+        $item -> update($input);
+        $data = Place::with('category', 'district')
+            ->orderBy('created_at', 'desc') // Sort by the 'created_at' column in descending order
+            ->get();
+        $wisata = Place::with('category')->where('category_id', 1)->count();
+        $event = Place::with('category')->where('category_id', 2)->count();
+        $user = User::count();
+        return view('home', [
+            'data' => $data,
+            'wisata' => $wisata,
+            'event' => $event,
+            'user' => $user
+        ]);
     }
 }

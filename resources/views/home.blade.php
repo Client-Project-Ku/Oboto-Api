@@ -74,7 +74,7 @@
                         <td>{{ $data->ticket }}</td>
                         <td>{{ $data->category->name }}</td>
                         <td>
-                          Aksi
+                          <a href="{{ route('place.edit', $data->id) }}">Edit</a>
                         </td>
                       </tr>
                       @empty

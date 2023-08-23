@@ -69,6 +69,14 @@
                       <input type="text" name="lng" class="form-control" placeholder="Masukkan Longitud Google Maps" required>
                     </div>
                     <div class="form-group">
+                      <label for="exampleSelectBorder">Fasilitas</label>
+                      <select name="facility_id" class="custom-select form-control-border" id="exampleSelectBorder" required>
+                        @foreach ($facility as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+                      </select>
+                  </div>
+                    <div class="form-group">
                       <label for="exampleInputFile">Gambar</label>
                       <div class="input-group">
                         <div class="custom-file">

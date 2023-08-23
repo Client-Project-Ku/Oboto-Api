@@ -14,12 +14,12 @@
 <li class="nav-item">
     <a href="{{ route('image.create') }}" class="nav-link {{ Request::is('image/create') ? 'active' : '' }}">
         <i class="nav-icon fas fa-image"></i>
-        <p>Input Gambar</p>
+        <p>Tambah Gambar</p>
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('image.create') }}" class="nav-link {{ Request::is('image') ? 'active' : '' }}">
+    <a href="{{ route('fasilitas.create') }}" class="nav-link {{ Request::is('fasilitas/create') ? 'active' : '' }}">
         <i class="nav-icon fas fa-map"></i>
-        <p>Input Fasilitas</p>
+        <p>Tambah Fasilitas</p>
     </a>
 </li>

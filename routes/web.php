@@ -22,6 +22,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resources([
     'place' => App\Http\Controllers\PlaceController::class,
     'image' => App\Http\Controllers\ImagesController::class,
+    'fasilitas' => \App\Http\Controllers\FasilitasController::class,
 ]);
 
 Auth::routes();

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\District;
+use App\Models\Bookmark;
+use App\Models\Image;
+use App\Models\Review;
+use App\Models\Facility;
+use App\Models\PlaceCategory;
 
 class Place extends Model
 {
@@ -22,7 +27,8 @@ class Place extends Model
         'lng',
         'category_id',
         'district_id',
-        'event_date'
+        'event_date',
+        'place_category_id'
     ];
 
     public function category()
@@ -53,5 +59,10 @@ class Place extends Model
     public function facilities()
     {
         return $this->belongsToMany(Facility::class, 'place_facilties');
+    }
+
+    public function placeCategory()
+    {
+        return $this->belongsTo(PlaceCategory::class);
     }
 }

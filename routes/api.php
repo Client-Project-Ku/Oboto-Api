@@ -53,4 +53,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/images', ImageController::class)->except(['index', 'show']);
 
     Route::apiResource('/places.facilities', PlaceFacilityController::class)->except(['index', 'show']);
+
+    Route::apiResource('places.categories', PlaceCategoryController::class);
 });

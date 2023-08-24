@@ -13,13 +13,16 @@ class PlaceController extends Controller
     public function index()
     {
         try {
-            $places = Place::with(['category', 'district', 'facilities', 'images', 'reviews'])->get();
+            $places = Place::with(['category', 'district', 'facilities', 'images', 'reviews', 'placeCategory'])->get();
 
             $places = $places->map(function ($place) {
                 $place->category_id = $place->category->name;
                 $place->district_id = $place->district->name;
+                $place->place_category_id = $place->placeCategory->name;
+
                 unset($place->category);
                 unset($place->district);
+                unset($place->placeCategory);
                 
                 $place->reviews->transform(function ($review) {
                     $review->user_name = $review->user->name; 
@@ -42,7 +45,7 @@ class PlaceController extends Controller
     public function getPlaceEvent()
     {
         try {
-            $places = Place::with(['category', 'district', 'facilities', 'images', 'reviews'])
+            $places = Place::with(['category', 'district', 'facilities', 'images', 'reviews', 'placeCategory'])
                 ->whereHas('category', function ($query) {
                     $query->where('name', CategoryName::EVENT);
                 })
@@ -51,8 +54,11 @@ class PlaceController extends Controller
             $places = $places->map(function ($place) {
                 $place->category_id = $place->category->name;
                 $place->district_id = $place->district->name;
-                unset($place->category_id);
-                unset($place->district_id);
+                $place->place_category_id = $place->placeCategory->name;
+                
+                unset($place->category);
+                unset($place->district);
+                unset($place->placeCategory);
                 return $place;
             });
 
@@ -76,7 +82,8 @@ class PlaceController extends Controller
                 'lng' => 'required|numeric',
                 'category_id' => 'required|numeric',
                 'district_id' => 'required|numeric',
-                'event_date' => 'date_format:Y-m-d'
+                'event_date' => 'date_format:Y-m-d',
+                'place_category_id' => 'required|numeric'
             ]);
 
             $place = Place::create($validate);
@@ -90,14 +97,17 @@ class PlaceController extends Controller
     public function show(string $id)
     {
         try {
-            $place = Place::with(['category', 'district', 'facilities', 'images', 'reviews'])
+            $place = Place::with(['category', 'district', 'facilities', 'images', 'reviews', 'placeCategory'])
                 ->where('id', $id)
                 ->firstOrFail();
 
             $place->category_id = $place->category->name;
             $place->district_id = $place->district->name;
+            $place->place_category_id = $place->placeCategory->name;
+
             unset($place->category);
             unset($place->district);
+            unset($place->placeCategory);
 
             return response()->json(['place' => $place]);
         } catch (ModelNotFoundException $e) {
@@ -123,7 +133,8 @@ class PlaceController extends Controller
                 'lng' => 'required|numeric',
                 'category_id' => 'required|numeric',
                 'district_id' => 'required|numeric',
-                'event_date' => 'date_format:Y-m-d'
+                'event_date' => 'date_format:Y-m-d',
+                'place_category_id' => 'required|numeric'
             ]);
 
             $place->update($validate);

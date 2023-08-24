@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\FacilityController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\PlaceCategoryController;
 use App\Http\Controllers\Api\PlaceController;
 use App\Http\Controllers\Api\PlaceFacilityController;
 use App\Http\Controllers\Api\ReviewController;

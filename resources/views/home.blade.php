@@ -60,6 +60,7 @@
                         <th>Kota/Kabupaten</th>
                         <th>Jam Operasional</th>
                         <th>Tiket</th>
+                        <th>Tipe</th>
                         <th>Kategori</th>
                         <th>Aksi</th>
                       </tr>
@@ -73,6 +74,7 @@
                         <td><span class="tag tag-success">{{ $data->open . ' - ' . $data->close}}</span></td>
                         <td>{{ $data->ticket }}</td>
                         <td>{{ $data->category->name }}</td>
+                        <td>{{ $data->placeCategory->name ??'-' }}</td>
                         <td>
                           <a href="{{ route('place.edit', $data->id) }}">Edit</a>
                         </td>

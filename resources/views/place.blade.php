@@ -29,6 +29,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="exampleSelectBorder">Kategori</label>
+                        <select name="place_category_id" class="custom-select form-control-border" id="exampleSelectBorder" required>
+                          @foreach ($placeCategory as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                          @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="exampleSelectBorder">Kota/Kabupaten</label>
                         <select name="district_id" class="custom-select form-control-border" id="exampleSelectBorder" required>
                           @foreach ($district as $item)

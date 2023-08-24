@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Place::with('category', 'district')
+        $data = Place::with('category', 'district', 'placeCategory')
             ->orderBy('created_at', 'desc') // Sort by the 'created_at' column in descending order
             ->get();
         $wisata = Place::with('category')->where('category_id', 1)->count();

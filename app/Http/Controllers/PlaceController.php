@@ -8,6 +8,7 @@ use App\Models\Place;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Facility;
+use App\Models\PlaceCategory;
 use Illuminate\Http\Request;
 use App\Models\PlaceFacility;
 
@@ -17,10 +18,12 @@ class PlaceController extends Controller
         $district = District::all();
         $category = Category::all();
         $facility = Facility::all();
+        $placeCategory = PlaceCategory::all();
         return view('place', [
             'district' => $district,
             'category' => $category,
             'facility' => $facility,
+            'placeCategory' => $placeCategory,
         ]);
     }
 
@@ -45,12 +48,14 @@ class PlaceController extends Controller
             $district = District::all(); // Retrieve districts
             $category = Category::all(); // Retrieve categories
             $facility = Facility::all(); // Retrieve facilities
+            $placeCategory = PlaceCategory::all(); // Retrieve place categories
 
             return view('place', [
                 'success' => 'Sukses menambahkan ' . $request->input("name"),
                 'district' => $district,
                 'category' => $category,
                 'facility' => $facility,
+                'placeCategory' => $placeCategory,
             ]);
     }
 
@@ -64,11 +69,13 @@ class PlaceController extends Controller
         $category = Category::all();
         $district = District::all();
         $facility = Facility::all();
+        $placeCategory = PlaceCategory::all();
         return view('editPlace', [
             'place' => $place,
             'category' => $category,
             'district' => $district,
             'facility' => $facility,
+            'placeCategory' => $placeCategory,
         ]);
     }
 
@@ -79,7 +86,7 @@ class PlaceController extends Controller
         $item = Place::findOrFail($id);
 
         $item -> update($input);
-        $data = Place::with('category', 'district')
+        $data = Place::with('category', 'district', 'placeCategory')
             ->orderBy('created_at', 'desc') // Sort by the 'created_at' column in descending order
             ->get();
         $wisata = Place::with('category')->where('category_id', 1)->count();

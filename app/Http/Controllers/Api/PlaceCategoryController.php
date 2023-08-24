@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PlaceCategory;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PlaceCategoryController extends Controller
 {
@@ -20,14 +21,19 @@ class PlaceCategoryController extends Controller
 
     public function store(Request $request)
     {
-        $validation = $request->validate([
+         // Define validation rules
+        $validationRules = [
             'name' => 'required'
-        ]);
+        ];
 
-        if ($validation->fails()) {
+        // Validate the request data
+        $validator = Validator::make($request->all(), $validationRules);
+
+        // Check if validation fails
+        if ($validator->fails()) {
             return response()->json([
-                'message' => 'failed',
-                'data' => $validation->errors()
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
             ], 400);
         }
 
